@@ -1,0 +1,80 @@
+.documentos-section {
+    padding: 2rem 0;
+}
+
+.alerts-section {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.alert-header {
+    margin-bottom: 1rem;
+}
+
+.alert-header h4 {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.alert-header p {
+    color: #856404;
+    font-size: 0.9rem;
+}
+
+.alerts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.alert-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+}
+
+.alert-content h5 {
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.alert-content p {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.status-vencido {
+    background-color: #f8d7da;
+    color: var(--danger-color);
+}
+
+.status-alerta {
+    background-color: #fff3cd;
+    color: var(--warning-color);
+}
+
+.status-ok {
+    background-color: #d4edda;
+    color: var(--success-color);
+}
+
+.stat-card.warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.stat-card.warning .stat-number {
+    color: var(--warning-color);
+}

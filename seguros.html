@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguros - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="seguros.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html" class="active">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="seguros-section">
+            <div class="section-header">
+                <h1>🛡️ Seguros</h1>
+                <p class="section-description">
+                    Proteja seu investimento com gestão inteligente de seguros. Controle apólices, vigências e 
+                    coberturas para garantir tranquilidade total na preservação do seu patrimônio automotivo.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('seguro')" id="toggle-seguro-btn">
+                    <span>➕</span> Novo Seguro
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-seguros">0</div>
+                        <div class="stat-label">Apólices Ativas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="investimento-seguros">R$ 0</div>
+                        <div class="stat-label">Investimento Anual</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alerts-section" id="alerts-seguros" style="display: none;">
+                <div class="alert-header">
+                    <h4>⚠️ Alertas de Seguros</h4>
+                    <p>Apólices que vencerão nos próximos 30 dias</p>
+                </div>
+                <div class="alerts-grid" id="alerts-seguros-grid">
+                </div>
+            </div>
+
+            <div class="form-container" id="seguro-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-seguro-title">🛡️ Novo Seguro</h3>
+                    <p class="form-description">
+                        Cadastre apólices de seguro para proteger seu veículo clássico com todas as coberturas necessárias.
+                    </p>
+                </div>
+                
+                <form id="formSeguro">
+                    <input type="hidden" id="seguro-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="veiculo-seguro">Veículo *</label>
+                            <select id="veiculo-seguro" required>
+                                <option value="">Selecione um veículo</option>
+                            </select>
+                            <small>Veículo a ser segurado</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seguradora">Seguradora *</label>
+                            <input type="text" id="seguradora" required placeholder="Nome da seguradora">
+                            <small>Empresa responsável pelo seguro</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="apolice">Número da Apólice *</label>
+                            <input type="text" id="apolice" required placeholder="Número da apólice">
+                            <small>Número de identificação da apólice</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="valor-seguro">Valor do Seguro (R$) *</label>
+                            <input type="number" id="valor-seguro" step="0.01" required placeholder="0.00">
+                            <small>Valor total anual do seguro</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="inicio-seguro">Início da Vigência *</label>
+                            <input type="date" id="inicio-seguro" required>
+                            <small>Data de início da cobertura</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vencimento-seguro">Vencimento *</label>
+                            <input type="date" id="vencimento-seguro" required>
+                            <small>Data de vencimento da apólice</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cobertura-seguro">Coberturas Incluídas</label>
+                        <textarea id="cobertura-seguro" rows="4" placeholder="Descreva todas as coberturas incluídas na apólice: colisão, incêndio, roubo, terceiros, assistência 24h..."></textarea>
+                        <small>Lista completa de coberturas do seguro</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes-seguro">Observações</label>
+                        <textarea id="observacoes-seguro" rows="3" placeholder="Informações adicionais sobre o seguro, contatos, restrições..."></textarea>
+                        <small>Detalhes importantes sobre a apólice</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Seguro
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📊 Apólices de Seguro</h3>
+                    <p class="table-description">
+                        Visualize e gerencie todas as apólices de seguro dos seus veículos. Mantenha o controle 
+                        de vencimentos e renovações para proteção contínua.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Veículo</th>
+                                <th>Seguradora</th>
+                                <th>Apólice</th>
+                                <th>Valor</th>
+                                <th>Vencimento</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-seguros">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-seguros" class="empty-state">
+                        <div class="empty-icon">🛡️</div>
+                        <h3>Nenhum seguro cadastrado</h3>
+                        <p>Proteja seu investimento cadastrando a primeira apólice de seguro!</p>
+                        <button class="btn" onclick="toggleForm('seguro')">
+                            <span>➕</span> Novo Seguro
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coverage-summary">
+                <h4>📋 Resumo de Coberturas</h4>
+                <div class="coverage-grid" id="coverage-grid">
+                    <div class="coverage-card">
+                        <div class="coverage-icon">🚗</div>
+                        <div class="coverage-info">
+                            <h5>Veículos Segurados</h5>
+                            <div class="coverage-count" id="veiculos-segurados">0</div>
+                        </div>
+                    </div>
+                    <div class="coverage-card">
+                        <div class="coverage-icon">💰</div>
+                        <div class="coverage-info">
+                            <h5>Investimento Total</h5>
+                            <div class="coverage-count" id="investimento-total">R$ 0,00</div>
+                        </div>
+                    </div>
+                    <div class="coverage-card">
+                        <div class="coverage-icon">🛡️</div>
+                        <div class="coverage-info">
+                            <h5>Proteção Ativa</h5>
+                            <div class="coverage-count" id="protecao-ativa">0 veículos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="seguros.js"></script>
+</body>
+</html>

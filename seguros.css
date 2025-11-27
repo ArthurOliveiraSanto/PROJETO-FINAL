@@ -1,0 +1,125 @@
+.seguros-section {
+    padding: 2rem 0;
+}
+
+.alerts-section {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.alert-header {
+    margin-bottom: 1rem;
+}
+
+.alert-header h4 {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.alert-header p {
+    color: #856404;
+    font-size: 0.9rem;
+}
+
+.alerts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.alert-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+}
+
+.alert-content h5 {
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.alert-content p {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.coverage-summary {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.coverage-summary h4 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.coverage-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.coverage-icon {
+    font-size: 2rem;
+}
+
+.coverage-info h5 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.coverage-count {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.status-vencido {
+    background-color: #f8d7da;
+    color: var(--danger-color);
+}
+
+.status-alerta {
+    background-color: #fff3cd;
+    color: var(--warning-color);
+}
+
+.status-ativo {
+    background-color: #d4edda;
+    color: var(--success-color);
+}
+
+.monetary-value {
+    font-weight: bold;
+    color: var(--primary-color);
+}

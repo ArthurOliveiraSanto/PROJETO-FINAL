@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manutenções - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manutencoes.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"> ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html" class="active">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="manutencoes-section">
+            <div class="section-header">
+                <h1>🔧 Manutenções</h1>
+                <p class="section-description">
+                    Controle completo do histórico de serviços. Registre cada manutenção, custos e peças utilizadas 
+                    para manter seu clássico sempre em perfeito estado de conservação.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('manutencao')" id="toggle-manutencao-btn">
+                    <span>➕</span> Nova Manutenção
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-manutencoes">0</div>
+                        <div class="stat-label">Total Realizadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="custo-total">R$ 0</div>
+                        <div class="stat-label">Investimento Total</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" id="manutencao-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-manutencao-title">🛠️ Nova Manutenção</h3>
+                    <p class="form-description">
+                        Registre todos os detalhes da manutenção realizada para manter um histórico completo do seu veículo.
+                    </p>
+                </div>
+                
+                <form id="formManutencao">
+                    <input type="hidden" id="manutencao-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="veiculo-manutencao">Veículo *</label>
+                            <select id="veiculo-manutencao" required>
+                                <option value="">Selecione um veículo</option>
+                            </select>
+                            <small>Veículo que recebeu a manutenção</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo-manutencao">Tipo de Manutenção *</label>
+                            <select id="tipo-manutencao" required>
+                                <option value="">Selecione o tipo...</option>
+                                <option value="preventiva">🛡️ Preventiva</option>
+                                <option value="corretiva">🔧 Corretiva</option>
+                                <option value="preditiva">📊 Preditiva</option>
+                                <option value="restauracao">🎨 Restauração</option>
+                                <option value="eletrica">⚡ Elétrica</option>
+                                <option value="mecanica">🔩 Mecânica</option>
+                                <option value="funilaria">🔨 Funilaria</option>
+                                <option value="pintura">🎯 Pintura</option>
+                            </select>
+                            <small>Tipo de serviço realizado</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="data-manutencao">Data da Manutenção *</label>
+                            <input type="date" id="data-manutencao" required>
+                            <small>Data em que o serviço foi realizado</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="custo-manutencao">Custo Total (R$) *</label>
+                            <input type="number" id="custo-manutencao" step="0.01" required placeholder="0.00">
+                            <small>Valor total gasto na manutenção</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="servico-manutencao">Serviço Realizado *</label>
+                        <textarea id="servico-manutencao" rows="4" required placeholder="Descreva detalhadamente os serviços realizados, problemas identificados e soluções aplicadas..."></textarea>
+                        <small>Descrição completa dos serviços executados</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pecas-manutencao">Peças Utilizadas</label>
+                        <textarea id="pecas-manutencao" rows="3" placeholder="Liste todas as peças utilizadas, com suas especificações e quantidades..."></textarea>
+                        <small>Peças substituídas ou instaladas (opcional)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fornecedor-manutencao">Fornecedor/Responsável</label>
+                        <input type="text" id="fornecedor-manutencao" placeholder="Oficina, mecânico ou fornecedor responsável">
+                        <small>Quem realizou o serviço (opcional)</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Manutenção
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📋 Histórico de Manutenções</h3>
+                    <p class="table-description">
+                        Visualize todo o histórico de manutenções dos seus veículos. Mantenha um registro completo 
+                        para acompanhar a saúde mecânica da sua coleção.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Veículo</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Serviço</th>
+                                <th>Custo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-manutencoes">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-manutencoes" class="empty-state">
+                        <div class="empty-icon">🔧</div>
+                        <h3>Nenhuma manutenção registrada</h3>
+                        <p>Registre a primeira manutenção do seu veículo para começar o histórico!</p>
+                        <button class="btn" onclick="toggleForm('manutencao')">
+                            <span>➕</span> Nova Manutenção
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="financial-summary">
+                <h4>💰 Resumo Financeiro</h4>
+                <div class="financial-cards">
+                    <div class="financial-card">
+                        <h5>Total Investido</h5>
+                        <div class="amount" id="total-investido">R$ 0,00</div>
+                    </div>
+                    <div class="financial-card">
+                        <h5>Média por Veículo</h5>
+                        <div class="amount" id="media-veiculo">R$ 0,00</div>
+                    </div>
+                    <div class="financial-card">
+                        <h5>Última Manutenção</h5>
+                        <div class="amount" id="ultima-manutencao">-</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="manutencoes.js"></script>
+</body>
+</html>

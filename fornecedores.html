@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedores - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="fornecedores.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html" class="active">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="fornecedores-section">
+            <div class="section-header">
+                <h1>🏭 Fornecedores</h1>
+                <p class="section-description">
+                    Gerencie sua rede de fornecedores especializados em veículos clássicos. 
+                    Mantenha contatos de oficinas, peças, funilarias e serviços especializados 
+                    para o cuidado da sua coleção.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('fornecedor')" id="toggle-fornecedor-btn">
+                    <span>➕</span> Novo Fornecedor
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-fornecedores">0</div>
+                        <div class="stat-label">Total de Fornecedores</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="fornecedores-ativos">0</div>
+                        <div class="stat-label">Fornecedores Ativos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" id="fornecedor-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-fornecedor-title">🏭 Novo Fornecedor</h3>
+                    <p class="form-description">
+                        Cadastre fornecedores especializados para manter sua rede de contatos organizada.
+                    </p>
+                </div>
+                
+                <form id="formFornecedor">
+                    <input type="hidden" id="fornecedor-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome-fornecedor">Nome/Razão Social *</label>
+                            <input type="text" id="nome-fornecedor" required placeholder="Ex: Oficina Clássica São Paulo">
+                            <small>Nome completo do fornecedor</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo-fornecedor">Tipo de Serviço *</label>
+                            <select id="tipo-fornecedor" required>
+                                <option value="">Selecione o tipo...</option>
+                                <option value="oficina">🔧 Oficina Mecânica</option>
+                                <option value="funilaria">🔨 Funilaria e Pintura</option>
+                                <option value="pecas">🔩 Peças e Acessórios</option>
+                                <option value="eletrica">⚡ Elétrica Automotiva</option>
+                                <option value="estofamento">🛋️ Estofamento</option>
+                                <option value="documentacao">📄 Documentação</option>
+                                <option value="seguros">🛡️ Seguros</option>
+                                <option value="transportes">🚛 Transporte</option>
+                                <option value="outros">🔧 Outros</option>
+                            </select>
+                            <small>Principal serviço oferecido</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="telefone-fornecedor">Telefone *</label>
+                            <input type="tel" id="telefone-fornecedor" required placeholder="(11) 99999-9999">
+                            <small>Telefone para contato</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email-fornecedor">E-mail</label>
+                            <input type="email" id="email-fornecedor" placeholder="contato@fornecedor.com">
+                            <small>E-mail para contato (opcional)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco-fornecedor">Endereço</label>
+                        <input type="text" id="endereco-fornecedor" placeholder="Endereço completo">
+                        <small>Endereço da empresa (opcional)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="especialidade-fornecedor">Especialidade/Descrição</label>
+                        <textarea id="especialidade-fornecedor" rows="4" placeholder="Descreva as especialidades, marcas atendidas, experiência com clássicos..."></textarea>
+                        <small>Detalhes sobre as especialidades do fornecedor</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contato-fornecedor">Pessoa de Contato</label>
+                        <input type="text" id="contato-fornecedor" placeholder="Nome do responsável">
+                        <small>Nome da pessoa de contato (opcional)</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Fornecedor
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📋 Fornecedores Cadastrados</h3>
+                    <p class="table-description">
+                        Visualize e gerencie todos os fornecedores da sua rede. 
+                        Mantenha suas informações atualizadas para facilitar o contato quando necessário.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>Telefone</th>
+                                <th>E-mail</th>
+                                <th>Especialidade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-fornecedores">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-fornecedores" class="empty-state">
+                        <div class="empty-icon">🏭</div>
+                        <h3>Nenhum fornecedor cadastrado</h3>
+                        <p>Comece cadastrando seu primeiro fornecedor para organizar sua rede de contatos!</p>
+                        <button class="btn" onclick="toggleForm('fornecedor')">
+                            <span>➕</span> Cadastrar Primeiro Fornecedor
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h4>💡 Dicas para uma boa rede de fornecedores:</h4>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h5>📞 Contatos Diversificados</h5>
+                        <p>Tenha fornecedores para diferentes tipos de serviços especializados</p>
+                    </div>
+                    <div class="tip-card">
+                        <h5>⭐ Avaliações</h5>
+                        <p>Registre suas experiências com cada fornecedor para futuras referências</p>
+                    </div>
+                    <div class="tip-card">
+                        <h5>📍 Localização</h5>
+                        <p>Mantenha fornecedores em diferentes regiões para maior praticidade</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="fornecedores.js"></script>
+</body>
+</html>

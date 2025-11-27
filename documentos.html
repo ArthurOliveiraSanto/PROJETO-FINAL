@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentos - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="documentos.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html" class="active">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="documentos-section">
+            <div class="section-header">
+                <h1>📄 Documentos</h1>
+                <p class="section-description">
+                    Centralize toda a documentação dos seus veículos. Controle vencimentos, renovações e mantenha 
+                    toda papelada organizada e acessível com alertas inteligentes.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('documento')" id="toggle-documento-btn">
+                    <span>➕</span> Adicionar Documento
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-documentos">0</div>
+                        <div class="stat-label">Total de Documentos</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-number" id="documentos-pendentes">0</div>
+                        <div class="stat-label">Vencendo em 30 dias</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" id="documento-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-documento-title">📋 Novo Documento</h3>
+                    <p class="form-description">
+                        Adicione documentos importantes do seu veículo e receba alertas antes do vencimento.
+                    </p>
+                </div>
+                
+                <form id="formDocumento">
+                    <input type="hidden" id="documento-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="veiculo-documento">Veículo *</label>
+                            <select id="veiculo-documento" required>
+                                <option value="">Selecione um veículo</option>
+                            </select>
+                            <small>Veículo ao qual o documento pertence</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo-documento">Tipo de Documento *</label>
+                            <select id="tipo-documento" required>
+                                <option value="">Selecione o tipo...</option>
+                                <option value="CRLV">🚗 CRLV</option>
+                                <option value="IPVA">💰 IPVA</option>
+                                <option value="seguro">🛡️ Seguro</option>
+                                <option value="nota">🧾 Nota Fiscal</option>
+                                <option value="documento">📋 Documento</option>
+                                <option value="laudo">🔧 Laudo Técnico</option>
+                                <option value="licenciamento">📄 Licenciamento</option>
+                                <option value="multas">🚨 Multas</option>
+                            </select>
+                            <small>Tipo do documento a ser cadastrado</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="numero-documento">Número do Documento</label>
+                            <input type="text" id="numero-documento" placeholder="Número de identificação do documento">
+                            <small>Número único do documento (opcional)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vencimento-documento">Data de Vencimento *</label>
+                            <input type="date" id="vencimento-documento" required>
+                            <small>Data limite para renovação do documento</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes-documento">Observações</label>
+                        <textarea id="observacoes-documento" rows="3" placeholder="Informações adicionais sobre o documento..."></textarea>
+                        <small>Detalhes importantes sobre o documento</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Documento
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="alerts-section" id="alerts-section" style="display: none;">
+                <div class="alert-header">
+                    <h4>⚠️ Alertas de Vencimento</h4>
+                    <p>Documentos que vencerão nos próximos 30 dias</p>
+                </div>
+                <div class="alerts-grid" id="alerts-grid">
+                </div>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📊 Documentos Cadastrados</h3>
+                    <p class="table-description">
+                        Visualize e gerencie todos os documentos dos seus veículos. Fique atento aos vencimentos 
+                        e mantenha toda documentação em dia.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Veículo</th>
+                                <th>Tipo</th>
+                                <th>Número</th>
+                                <th>Vencimento</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-documentos">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-documentos" class="empty-state">
+                        <div class="empty-icon">📄</div>
+                        <h3>Nenhum documento cadastrado</h3>
+                        <p>Adicione o primeiro documento do seu veículo para começar o controle!</p>
+                        <button class="btn" onclick="toggleForm('documento')">
+                            <span>➕</span> Adicionar Documento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="documentos.js"></script>
+</body>
+</html>

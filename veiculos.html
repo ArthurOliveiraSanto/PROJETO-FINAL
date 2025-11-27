@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Veículos - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="veiculos.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"> ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html" class="active">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="veiculos-section">
+            <div class="section-header">
+                <h1>🚗 Meus Veículos</h1>
+                <p class="section-description">
+                    Gerencie sua coleção de veículos clássicos. Cadastre cada exemplar com todos os detalhes técnicos, 
+                    histórico e estado de conservação para um controle completo do seu patrimônio automotivo.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('veiculo')" id="toggle-veiculo-btn">
+                    <span>➕</span> Cadastrar Novo Veículo
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-veiculos">0</div>
+                        <div class="stat-label">Total de Veículos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="veiculos-ativos">0</div>
+                        <div class="stat-label">Veículos Ativos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" id="veiculo-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-veiculo-title">🎯 Cadastrar Novo Veículo</h3>
+                    <p class="form-description">
+                        Preencha todos os dados do seu veículo clássico para um controle completo e detalhado.
+                    </p>
+                </div>
+                
+                <form id="formVeiculo">
+                    <input type="hidden" id="veiculo-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="marca">Marca *</label>
+                            <input type="text" id="marca" required placeholder="Ex: Ford, Chevrolet, Volkswagen...">
+                            <small>Informe a fabricante do veículo</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="modelo">Modelo *</label>
+                            <input type="text" id="modelo" required placeholder="Ex: Mustang, Opala, Fusca...">
+                            <small>Modelo específico do veículo</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="ano">Ano de Fabricação *</label>
+                            <input type="number" id="ano" min="1900" max="2030" required>
+                            <small>Ano de fabricação original</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="estado">Estado de Conservação *</label>
+                            <select id="estado" required>
+                                <option value="">Selecione o estado...</option>
+                                <option value="original">🎖️ Original</option>
+                                <option value="restaurado">✨ Restaurado</option>
+                                <option value="project">🔧 Project Car</option>
+                                <option value="excelente">⭐ Excelente</option>
+                                <option value="bom">👍 Bom</option>
+                                <option value="regular">🔨 Regular</option>
+                            </select>
+                            <small>Estado atual de conservação</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chassi">Número do Chassi</label>
+                        <input type="text" id="chassi" placeholder="Número único do chassi">
+                        <small>Número de identificação do veículo (opcional)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes">Observações e Detalhes</label>
+                        <textarea id="observacoes" rows="4" placeholder="Descreva características especiais, histórico, modificações ou detalhes importantes do veículo..."></textarea>
+                        <small>Informações adicionais sobre o veículo</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Veículo
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📋 Veículos Cadastrados</h3>
+                    <p class="table-description">
+                        Visualize e gerencie todos os veículos da sua coleção. Clique em editar para atualizar informações 
+                        ou em excluir para remover um veículo do sistema.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Ano</th>
+                                <th>Estado</th>
+                                <th>Chassi</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-veiculos">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-veiculos" class="empty-state">
+                        <div class="empty-icon">🚗</div>
+                        <h3>Nenhum veículo cadastrado</h3>
+                        <p>Comece cadastrando seu primeiro veículo clássico para gerenciar sua coleção!</p>
+                        <button class="btn" onclick="toggleForm('veiculo')">
+                            <span>➕</span> Cadastrar Primeiro Veículo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h4>💡 Dicas para um bom cadastro:</h4>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h5>📸 Documentação</h5>
+                        <p>Mantenha fotos e documentos do veículo organizados</p>
+                    </div>
+                    <div class="tip-card">
+                        <h5>🔧 Histórico</h5>
+                        <p>Registre todas as manutenções e procedimentos realizados</p>
+                    </div>
+                    <div class="tip-card">
+                        <h5>💰 Valorização</h5>
+                        <p>Acompanhe a valorização do seu investimento automotivo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="veiculos.js"></script>
+</body>
+</html>

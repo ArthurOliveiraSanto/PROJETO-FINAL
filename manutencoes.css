@@ -1,0 +1,65 @@
+.manutencoes-section {
+    padding: 2rem 0;
+}
+
+.financial-summary {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.financial-summary h4 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.financial-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.financial-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.financial-card h5 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.financial-card .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.status-preventiva {
+    background-color: #d1ecf1;
+    color: var(--info-color);
+}
+
+.status-corretiva {
+    background-color: #f8d7da;
+    color: var(--danger-color);
+}
+
+.status-preditiva {
+    background-color: #fff3cd;
+    color: var(--warning-color);
+}
+
+.status-restauracao {
+    background-color: #d4edda;
+    color: var(--success-color);
+}

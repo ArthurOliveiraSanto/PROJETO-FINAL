@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassicCar Manager - Gestão de Veículos Clássicos</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section id="inicio" class="page-section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Gestão Especializada para Veículos Clássicos</h1>
+                    <p>Preserve, gerencie e valorize seu patrimônio automotivo</p>
+                    <a href="veiculos.html" class="btn">
+                         Começar a Gerenciar
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div class="card">
+                    <h3>📊 Resumo Geral</h3>
+                    <p>Veículos cadastrados: <strong id="total-veiculos">0</strong></p>
+                    <p>Próxima manutenção: <strong id="proxima-manutencao">-</strong></p>
+                    <p>Documentos pendentes: <strong id="documentos-pendentes">0</strong></p>
+                    <a href="veiculos.html" class="btn">Ver Detalhes</a>
+                </div>
+
+                <div class="card">
+                    <h3>🚗 Meus Veículos</h3>
+                    <p>Gerencie sua coleção de veículos clássicos</p>
+                    <a href="veiculos.html" class="btn">Gerenciar Veículos</a>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Manutenções</h3>
+                    <p>Controle de serviços e histórico mecânico</p>
+                    <a href="manutencoes.html" class="btn">Ver Manutenções</a>
+                </div>
+
+                <div class="card">
+                    <h3>📄 Documentos</h3>
+                    <p>Centralize toda documentação dos veículos</p>
+                    <a href="documentos.html" class="btn">Ver Documentos</a>
+                </div>
+
+                <div class="card">
+                    <h3>🎪 Eventos</h3>
+                    <p>Participe de eventos e exposições</p>
+                    <a href="eventos.html" class="btn">Ver Eventos</a>
+                </div>
+
+                <div class="card">
+                    <h3>🛡️ Seguros</h3>
+                    <p>Proteja seu investimento automotivo</p>
+                    <a href="seguros.html" class="btn">Ver Seguros</a>
+                </div>
+            </div>
+
+            <div class="highlights-section">
+                <h2>✨ Por que escolher o ClassicCar Manager?</h2>
+                <div class="highlights-grid">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🏆</div>
+                        <h4>Gestão Completa</h4>
+                        <p>Controle total da sua coleção de veículos clássicos em uma única plataforma</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">💾</div>
+                        <h4>Histórico Detalhado</h4>
+                        <p>Registre todas as manutenções, custos e histórico de cada veículo</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">📅</div>
+                        <h4>Lembretes Inteligentes</h4>
+                        <p>Nunca mais perca prazos de documentos e manutenções importantes</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">💰</div>
+                        <h4>Controle Financeiro</h4>
+                        <p>Acompanhe todos os custos e investimentos na sua coleção</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number" id="stats-veiculos">0</div>
+                    <div class="stat-label">Veículos Cadastrados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="stats-manutencoes">0</div>
+                    <div class="stat-label">Manutenções Realizadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="stats-documentos">0</div>
+                    <div class="stat-label">Documentos Gerenciados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="stats-eventos">0</div>
+                    <div class="stat-label">Eventos Participados</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <script>
+        function carregarDados() {
+            const veiculos = JSON.parse(localStorage.getItem('veiculos')) || [];
+            const manutencoes = JSON.parse(localStorage.getItem('manutencoes')) || [];
+            const documentos = JSON.parse(localStorage.getItem('documentos')) || [];
+            const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+
+            document.getElementById('total-veiculos').textContent = veiculos.length;
+            document.getElementById('stats-veiculos').textContent = veiculos.length;
+            document.getElementById('stats-manutencoes').textContent = manutencoes.length;
+            document.getElementById('stats-documentos').textContent = documentos.length;
+            document.getElementById('stats-eventos').textContent = eventos.length;
+
+            const manutencoesFuturas = manutencoes
+                .filter(m => new Date(m.data) > new Date())
+                .sort((a, b) => new Date(a.data) - new Date(b.data));
+            
+            if (manutencoesFuturas.length > 0) {
+                document.getElementById('proxima-manutencao').textContent = 
+                    new Date(manutencoesFuturas[0].data).toLocaleDateString('pt-BR');
+            }
+
+            const documentosPendentes = documentos.filter(d => {
+                const vencimento = new Date(d.vencimento);
+                return vencimento < new Date();
+            }).length;
+            document.getElementById('documentos-pendentes').textContent = documentosPendentes;
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarDados);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

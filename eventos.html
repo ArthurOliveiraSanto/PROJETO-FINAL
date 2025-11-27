@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - ClassicCar Manager</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="eventos.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"> ClassicCar Manager</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="veiculos.html">Veículos</a></li>
+                    <li><a href="manutencoes.html">Manutenções</a></li>
+                    <li><a href="documentos.html">Documentos</a></li>
+                    <li><a href="eventos.html" class="active">Eventos</a></li>
+                    <li><a href="seguros.html">Seguros</a></li>
+                    <li><a href="fornecedores.html">Fornecedores</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="eventos-section">
+            <div class="section-header">
+                <h1>🎪 Eventos</h1>
+                <p class="section-description">
+                    Participe da comunidade clássica! Cadastre eventos, inscreva seus veículos e acompanhe todas 
+                    as oportunidades de expor suas joias raras em exposições, encontros e competições.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <button class="btn btn-primary" onclick="toggleForm('evento')" id="toggle-evento-btn">
+                    <span>➕</span> Novo Evento
+                </button>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-eventos">0</div>
+                        <div class="stat-label">Eventos Cadastrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="proximos-eventos">0</div>
+                        <div class="stat-label">Próximos Eventos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" id="evento-form" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-evento-title">🎯 Novo Evento</h3>
+                    <p class="form-description">
+                        Cadastre eventos automotivos e inscreva seus veículos para participar da comunidade clássica.
+                    </p>
+                </div>
+                
+                <form id="formEvento">
+                    <input type="hidden" id="evento-id">
+                    
+                    <div class="form-group">
+                        <label for="nome-evento">Nome do Evento *</label>
+                        <input type="text" id="nome-evento" required placeholder="Ex: Exposição de Clássicos SP, Encontro VW...">
+                        <small>Nome completo do evento automotivo</small>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="data-evento">Data do Evento *</label>
+                            <input type="date" id="data-evento" required>
+                            <small>Data em que o evento será realizado</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo-evento">Tipo de Evento *</label>
+                            <select id="tipo-evento" required>
+                                <option value="">Selecione o tipo...</option>
+                                <option value="exposicao">🏆 Exposição</option>
+                                <option value="leilao">🔨 Leilão</option>
+                                <option value="encontro">🤝 Encontro</option>
+                                <option value="competicao">🏁 Competição</option>
+                                <option value="feira">🎪 Feira</option>
+                                <option value="tour">🗺️ Tour</option>
+                                <option value="trackday">🏎️ Track Day</option>
+                            </select>
+                            <small>Tipo de evento automotivo</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="local-evento">Local do Evento *</label>
+                        <input type="text" id="local-evento" required placeholder="Endereço completo do evento">
+                        <small>Local onde o evento será realizado</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="veiculos-evento">Veículos Participantes</label>
+                        <select id="veiculos-evento" multiple style="height: 120px;">
+                        </select>
+                        <small>Selecione os veículos que participarão do evento (segure Ctrl para múltipla seleção)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes-evento">Observações e Detalhes</label>
+                        <textarea id="observacoes-evento" rows="4" placeholder="Informações adicionais sobre o evento, programação, regras, contatos..."></textarea>
+                        <small>Detalhes importantes sobre o evento</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <span>💾</span> Salvar Evento
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="cancelarEdicao()">
+                            <span>❌</span> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="upcoming-events" id="upcoming-events" style="display: none;">
+                <div class="upcoming-header">
+                    <h4>📅 Próximos Eventos</h4>
+                    <p>Eventos que acontecerão nos próximos 30 dias</p>
+                </div>
+                <div class="events-grid" id="events-grid">
+                </div>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>📋 Eventos Cadastrados</h3>
+                    <p class="table-description">
+                        Visualize e gerencie todos os eventos da sua agenda automotiva. Acompanhe participações 
+                        e planeje sua presença na comunidade clássica.
+                    </p>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Evento</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Local</th>
+                                <th>Veículos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-eventos">
+                        </tbody>
+                    </table>
+                    
+                    <div id="empty-eventos" class="empty-state">
+                        <div class="empty-icon">🎪</div>
+                        <h3>Nenhum evento cadastrado</h3>
+                        <p>Cadastre o primeiro evento para participar da comunidade clássica!</p>
+                        <button class="btn" onclick="toggleForm('evento')">
+                            <span>➕</span> Novo Evento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 ClassicCar Manager - Gestão Especializada para Veículos Clássicos</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="eventos.js"></script>
+</body>
+</html>
